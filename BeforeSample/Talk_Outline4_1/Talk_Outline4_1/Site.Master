@@ -1,0 +1,100 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Talk_Outline4_1.Site" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="Styles/Site.css" rel="stylesheet" />
+    <%--<link href="Styles/css" rel="stylesheet" />--%>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold" rel="stylesheet" />
+
+    <script charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"
+        type="text/javascript">
+        </script>
+
+    <script src="Scripts/modernizr-2.0.6-development-only.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+    <script src="Scripts/respond.js" type="text/javascript"></script>
+    <%--<script src="Scripts/js"></script>--%>
+    
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="wrapper">
+        <header id="header" class="clearfix" role="banner">
+            <hgroup>
+                <h1 id="site-title">
+                    <a href="~/">My .Ramblings</a></h1>
+            </hgroup>
+        </header>
+        <div id="main" class="clearfix">
+            <div class="alignright">
+                <section id="login">
+                    <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <a id="A2" href="~/Account/Login.aspx" runat="server">Log On</a>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <p>
+                                Hello,
+                                <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                                !
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Log Off"
+                                    LogoutPageUrl="~/" />
+                            </p>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </section>
+            </div>
+            <nav id="menu" class="clearfix" role="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/About">About</a>
+                    <li><a href="/Contact">Contact Me</a></li>
+                </ul>
+            </nav>
+            <div>
+                <aside id="sidebar" role="complementary">
+                    <aside class="widget">
+                        <asp:ListView ID="MyTweetsListView" runat="server">
+                            <LayoutTemplate>
+                                <table>
+                                    <th>
+                                        My Tweets
+                                    </th>
+                                    <tbody>
+                                        <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
+                                    </tbody>
+                                </table>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td>
+                                        <a href="<%#Eval("Url")%>">
+                                            <%#Eval("Title") %></a>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </aside>
+                </aside>
+            </div>
+            <div id="body">
+                <section>
+                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                </section>
+            </div>
+        </div>
+        <footer id="footer">
+            <p>
+            </p>
+        </footer>
+        <div class="clear">
+        </div>
+    </div>
+    </form>
+</body>
+</html>

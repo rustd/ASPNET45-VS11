@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="DatabaseModelStoreContainer">
+    <EntitySet Name="Comment" EntityType="DatabaseModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Post" EntityType="DatabaseModel.Store.Post" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Comment_Post" Association="DatabaseModel.Store.FK_Comment_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CommentText" Type="nvarchar(max)" />
+    <Property Name="PublishedDate" Type="datetime" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="PostText" Type="nvarchar(max)" />
+    <Property Name="PublishedDate" Type="datetime2" />
+  </EntityType>
+  <Association Name="FK_Comment_Post">
+    <End Role="Post" Type="DatabaseModel.Store.Post" Multiplicity="1" />
+    <End Role="Comment" Type="DatabaseModel.Store.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
